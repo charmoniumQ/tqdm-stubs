@@ -7,8 +7,8 @@ license = "MIT"
 readme = "README.rst"
 repository = "https://github.com/charmoniumQ/tqdm-stubs"
 packages = [
-#	{include = "tqdm_stubs"}
-	{ include = "tqdm_stubs/**/*.pyi" },
+	{include = "tqdm-stubs"}
+#	{ include = "tqdm-stubs/**/*.pyi" },
 ]
 keywords = ["tqdm", "type", "stubs"]
 classifiers = [
