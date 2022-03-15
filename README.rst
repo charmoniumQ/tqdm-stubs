@@ -35,6 +35,10 @@ tqdm-stubs
 
 Stub type files for tqdm
 
+I found type signatures from `here`_; I put them into their own package and am writing tests.
+
+.. _`here`: https://github.com/lschmelzeisen/nasty-typeshed/blob/master/src/tqdm-stubs/__init__.pyi
+
 ----------
 Quickstart
 ----------
@@ -46,6 +50,4 @@ guide`_.
 
 .. code-block:: console
 
-    $ pip install tqdm_stubs
-
->>> import tqdm_stubs
+    $ pip install tqdm-stubs
