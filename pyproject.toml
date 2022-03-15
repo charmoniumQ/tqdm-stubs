@@ -1,0 +1,117 @@
+[tool.poetry]
+name = "tqdm-stubs"
+version = "0.1.0"
+description = "Stub type files for tqdm"
+authors = ["Samuel Grayson <sam+dev@samgrayson.me>"]
+license = "MIT"
+readme = "README.rst"
+repository = "https://github.com/charmoniumQ/tqdm-stubs"
+packages = [
+#	{include = "tqdm_stubs"}
+	{ include = "tqdm_stubs/**/*.pyi" },
+]
+keywords = ["tqdm", "type", "stubs"]
+classifiers = [
+	"Operating System :: OS Independent",
+	"Typing :: Typed",
+	"Natural Language :: English",
+	"Development Status :: 4 - Beta",
+	"License :: OSI Approved :: MIT License",
+	"Intended Audience :: Developers",
+	"Topic :: Software Development :: Libraries :: Python Modules",
+]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.isort]
+profile = "black"
+
+[tool.pytest.ini_options]
+addopts = "--quiet --numprocesses=auto --doctest-modules --doctest-glob='*.rst'"
+
+[tool.coverage.run]
+branch = true
+data_file = "build/.coverage"
+
+[tool.coverage.html]
+directory = "build/htmlcov"
+
+[tool.coverage.report]
+# Regexes for lines to exclude from consideration
+exclude_lines = [
+    'pragma: no cover',
+    'def __repr__',
+    'if self\.debug',
+    'raise AssertionError',
+    'raise NotImplementedError',
+    'if False:',
+    'if __name__ == .__main__.:',
+	'if TYPE_CHECKING',
+    '@(abc\.)?abstractmethod',
+    '\w*\.\.\.$',
+    '\w*pass$',
+]
+
+# [tool.pylint]
+# Too long for inclusion here
+# see pylintrc
+
+[tool.mypy]
+strict = true
+pretty = true
+error_summary = true
+color_output = true
+#mypy_path = stubs
+
+[tool.bump2version]
+current_version = "0.1.0"
+commit = true
+tag = true
+
+[tool.tox]
+legacy_tox_ini = """
+[tox]
+envlist = py{37,38,39,310}
+# Make sure to install the Python versions listed here in the Nix flake.
+isolated_build = True
+
+[testenv]
+whitelist_externals = poetry
+skip_install = true
+commands =
+    poetry install
+    {toxinidir}/script.py per-env-tests
+"""
+
+[tool.poetry.dev-dependencies]
+autoimport = "^0.7.5"
+isort = "^5.10.0"
+black = "^21.10b0"
+pylint = "^2.11.1"
+mypy = "^0.910"
+pytest = "^6.2.5"
+pytest-xdist = "^2.4.0"
+pytest-cov = "^3.0.0"
+coverage = "^6.1.2"
+tox = "^3.24.4"
+radon = "^5.1.0"
+twine = "^3.5.0"
+proselint = "^0.13.0"
+rstcheck = "^3.3.1"
+bump2version = "^1.0.1"
+"charmonium.async-subprocess" = "^0.1.7"
+typer = "^0.4.0"
+termcolor = "^1.1.0"
+typing-extensions = "^4.1.1"
+ipython = "^7.29.0"
+ipdb = "^0.13.9"
+types-setuptools = "^57.4.10"
+types-toml = "^0.10.4"
+types-termcolor = "^1.1.3"
+# rest
+
+[tool.poetry.dependencies]
+python = "^3.7"
+# make sure to keep the Python versions here consistent with those tested by Tox (tool.tox.legacy_tox_ini.tox.envlist).

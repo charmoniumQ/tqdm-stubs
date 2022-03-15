@@ -1,0 +1,21 @@
+{
+  "cookiecutter": {
+    "repo_name": "tqdm-stubs",
+    "package_name": "tqdm_stubs",
+    "description": "Stub type files for tqdm",
+    "author_name": "Samuel Grayson",
+    "author_email": "sam+dev@samgrayson.me",
+    "license": "MIT",
+    "__year": "2022",
+    "repo_user": "charmoniumQ",
+    "repo_url": "https://github.com/charmoniumQ/tqdm-stubs",
+    "version": "0.1.0",
+    "keywords": "tqdm type stubs",
+    "trove_intended_audience": "Intended Audience :: Developers",
+    "trove_license": "License :: OSI Approved :: MIT License",
+    "trove_topics": "Topic :: Software Development :: Libraries :: Python Modules",
+    "trove_classifiers": "",
+    "nix_dependencies": ""
+  },
+  "comment": "This repository was created from a template in <https://github.com/charmoniumQ/sams-cookiecutter-pypackage.git> with these options. Use `cookiecutter gh:charmoniumQ/sams-cookiecutter-pypackage.git --output-dir . --overwrite-if-exists --reply --replay-file cookiecutter_replay.json` to regenerate."
+}
