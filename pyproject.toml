@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "tqdm-stubs"
-version = "0.1.2"
+version = "0.2.0"
 description = "Stub type files for tqdm"
 authors = ["Samuel Grayson <sam+dev@samgrayson.me>"]
 license = "MIT"
@@ -66,7 +66,7 @@ color_output = true
 #mypy_path = stubs
 
 [tool.bump2version]
-current_version = "0.1.2"
+current_version = "0.2.0"
 commit = true
 tag = true
 
