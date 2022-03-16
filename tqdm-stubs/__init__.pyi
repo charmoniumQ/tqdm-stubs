@@ -18,7 +18,6 @@ from typing import (
     Any,
     ContextManager,
     Iterable,
-    Iterator,
     MutableMapping,
     Optional,
     TextIO,
@@ -33,7 +32,7 @@ class tqdm(Iterable[_T], ContextManager["tqdm[None]"]):  # noqa: N801
     # type. Not sure exactly why that works.
     def __init__(
         self,
-        iterable: Iterator[_T] = ...,
+        iterable: Iterable[_T] = ...,
         desc: Optional[str] = ...,
         total: Optional[Union[int, float]] = ...,
         leave: bool = ...,
