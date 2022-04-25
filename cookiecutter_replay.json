@@ -9,13 +9,15 @@
     "__year": "2022",
     "repo_user": "charmoniumQ",
     "repo_url": "https://github.com/charmoniumQ/tqdm-stubs",
-    "version": "0.1.0",
+    "docs_url": "",
+    "version": "0.2.0",
+    "use_poetry": "yes",
+    "pypi_package": "yes",
     "keywords": "tqdm type stubs",
     "trove_intended_audience": "Intended Audience :: Developers",
-    "trove_license": "License :: OSI Approved :: MIT License",
     "trove_topics": "Topic :: Software Development :: Libraries :: Python Modules",
-    "trove_classifiers": "",
+    "trove_other_classifiers": "",
     "nix_dependencies": ""
   },
-  "comment": "This repository was created from a template in <https://github.com/charmoniumQ/sams-cookiecutter-pypackage.git> with these options. Use `cookiecutter gh:charmoniumQ/sams-cookiecutter-pypackage.git --output-dir . --overwrite-if-exists --reply --replay-file cookiecutter_replay.json` to regenerate."
+  "comment": "This repository was created from a template in <https://github.com/charmoniumQ/sams-cookiecutter-pypackage.git> with these options. Use `cookiecutter gh:charmoniumQ/sams-cookiecutter-pypackage --output-dir . --overwrite-if-exists --replay --replay-file cookiecutter_replay.json` to regenerate."
 }

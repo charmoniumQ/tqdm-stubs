@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import asyncio
 import datetime
+import itertools
 import multiprocessing
 import os
 import shlex
@@ -26,7 +27,7 @@ from typing import (
     cast,
 )
 
-#import autoimport
+# import autoimport
 import isort
 import setuptools
 import toml
@@ -183,7 +184,7 @@ async def test() -> None:
             # see https://pylint.pycqa.org/en/latest/user_guide/run.html#exit-codes
             checker=lambda proc: proc.returncode & (1 | 2) == 0,
         ),
-        pytest(use_coverage=True, show_slow=True),
+        pytest(use_coverage=False, show_slow=True),
         pretty_run(
             [
                 "radon",
@@ -263,20 +264,15 @@ async def all_tests(interactive: bool = True) -> None:
 
 
 async def all_tests_inner(interactive: bool) -> None:
-    async def poetry_build() -> None:
-        dist = Path("dist")
-        if dist.exists():
-            shutil.rmtree(dist)
-        await pretty_run(["rstcheck", "README.rst"])
-        await pretty_run(["poetry", "build", "--quiet"])
-        await pretty_run(["twine", "check", "--strict", *dist.iterdir()])
+    dist = Path("dist")
+    if dist.exists():
         shutil.rmtree(dist)
+    await pretty_run(["proselint", "README.rst"])
+    await pretty_run(["rstcheck", "README.rst"])
+    await pretty_run(["poetry", "build", "--quiet"])
+    await pretty_run(["twine", "check", "--strict", *dist.iterdir()])
+    shutil.rmtree(dist)
 
-    await asyncio.gather(
-        poetry_build(),
-        docs_inner(),
-        pytest(use_coverage=False, show_slow=False),
-    )
     # Tox already has its own parallelism,
     # and it shows a nice stateus spinner.
     # so I'll not `await pretty_run`
@@ -338,16 +334,11 @@ def dct_to_args(dct: Mapping[str, Union[bool, int, float, str]]) -> List[str]:
 
 @app.command()
 def publish(
-        version_part: VersionPart,
-        verify: bool = True,
-        docs: bool = True,
-        bump: bool = True,
+    version_part: VersionPart,
+    gen_docs: bool = True,
+    bump: bool = True,
 ) -> None:
-    if verify:
-        asyncio.run(all_tests_inner(True))
-    elif docs:
-        # verify => all_tests_inner => docs already.
-        # This is only need for the case where (not verify and docs).
+    if gen_docs:
         asyncio.run(docs_inner())
     if bump:
         subprocess.run(
@@ -358,20 +349,34 @@ def publish(
                 pyproject["tool"]["poetry"]["version"],
                 version_part.value,
                 "pyproject.toml",
-                *[
-                    str(Path(package.replace(".", "/")) / "__init__.py")
+                *itertools.chain.from_iterable(
+                    Path(package.replace(".", "/")).glob("**/__init__.py")
                     for package in src_packages
-                    if (Path(package.replace(".", "/")) / "__init__.py").exists()
-                ],
+                ),
             ],
             check=True,
         )
-    subprocess.run(
-        ["poetry", "publish", "--build"],
-        check=True,
-    )
+    extra_args = []
+    if "TWINE_USERNAME" in os.environ:
+        extra_args += ["--username", os.environ["TWINE_USERNAME"]]
+    if "TWINE_PASSWORD" in os.environ:
+        extra_args += ["--password", os.environ["TWINE_PASSWORD"]]
+    try:
+        subprocess.run(
+            ["poetry", "publish", "--build", *extra_args],
+            check=True,
+        )
+    except subprocess.CalledProcessError as e:
+        # Undo bump2version
+        new_pyproject = toml.loads(Path("pyproject.toml").read_text())
+        tag = "v" + new_pyproject["tool"]["bump2version"]["current_version"]
+        subprocess.run(["git", "tag", "--delete", tag], check=True)
+        subprocess.run(["git", "reset", "--hard", "HEAD~1"], check=True)
+        shutil.rmtree("dist")
+        raise e
     shutil.rmtree("dist")
     subprocess.run(["git", "push", "--tags"], check=True)
+    subprocess.run(["git", "push"], check=True)
     # TODO: publish docs
 
 

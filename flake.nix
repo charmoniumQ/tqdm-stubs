@@ -48,19 +48,18 @@
         };
 
         packages.${name-shell} = pkgs.mkShell {
-          buildInputs = nix-dev-dependencies;
+          buildInputs = nix-dev-dependencies ++ [default-python];
           shellHook = ''
-            env_hash=$(sha1sum poetry.lock | cut -f1 -d' ')
-            if [ ! -f build/$env_hash ]; then
+            if [ ! -f poetry.lock ] || [ ! -f build/poetry-$(sha1sum poetry.lock | cut -f1 -d' ') ]; then
                 poetry install --remove-untracked
                 if [ ! -d build ]; then
                     mkdir build
                 fi
-                touch build/$env_hash
+                touch build/poetry-$(sha1sum poetry.lock | cut -f1 -d' ')
             fi
             export PREPEND_TO_PS1="(${name}) "
             export PYTHONNOUSERSITE=true
-            export VIRTUAL_ENV=$(poetry env info -p)
+            export VIRTUAL_ENV=$(poetry env info --path)
             export PATH=$VIRTUAL_ENV/bin:$PATH
           '';
           # TODO: write a check expression (`nix flake check`)
