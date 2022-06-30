@@ -16,9 +16,7 @@ classifiers = [
 	"Typing :: Typed",
 	"Natural Language :: English",
 	"Development Status :: 4 - Beta",
-	"License :: OSI Approved :: MIT License",
-	"Intended Audience :: Developers",
-	"Topic :: Software Development :: Libraries :: Python Modules",
+	"Intended Audience :: Developers","Topic :: Software Development :: Libraries :: Python Modules",
 ]
 
 [build-system]
@@ -85,6 +83,7 @@ commands =
     {toxinidir}/script.py per-env-tests
 """
 
+
 [tool.poetry.dev-dependencies]
 autoimport = "^0.7.5"
 isort = "^5.10.0"
@@ -105,8 +104,8 @@ bump2version = "^1.0.1"
 typer = "^0.4.0"
 termcolor = "^1.1.0"
 typing-extensions = "^4.1.1"
-ipython = "^7.29.0"
-ipdb = "^0.13.9"
+# ipython = "^7.29.0"
+# ipdb = "^0.13.9"
 types-setuptools = "^57.4.10"
 types-toml = "^0.10.4"
 types-termcolor = "^1.1.3"
@@ -115,3 +114,4 @@ types-termcolor = "^1.1.3"
 [tool.poetry.dependencies]
 python = "^3.7"
 # make sure to keep the Python versions here consistent with those tested by Tox (tool.tox.legacy_tox_ini.tox.envlist).
+
