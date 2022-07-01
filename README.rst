@@ -17,9 +17,6 @@ tqdm-stubs
 .. image:: https://img.shields.io/librariesio/sourcerank/pypi/tqdm_stubs
    :alt: libraries.io sourcerank
    :target: https://libraries.io/pypi/tqdm_stubs
-.. image:: https://img.shields.io/badge/docs-yes-success
-   :alt: Repo
-   :target: 
 .. image:: https://img.shields.io/github/stars/charmoniumQ/tqdm-stubs?style=social
    :alt: GitHub stars
    :target: https://github.com/charmoniumQ/tqdm-stubs

@@ -184,7 +184,7 @@ async def test() -> None:
             # see https://pylint.pycqa.org/en/latest/user_guide/run.html#exit-codes
             checker=lambda proc: proc.returncode & (1 | 2) == 0,
         ),
-        pytest(use_coverage=True, show_slow=True),
+        pytest(use_coverage=False, show_slow=True),
         pretty_run(
             [
                 "radon",
