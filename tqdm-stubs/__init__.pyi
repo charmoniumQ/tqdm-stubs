@@ -24,7 +24,9 @@ from typing import (
     TextIO,
     TypeVar,
     Union,
+    Type
 )
+from types import TracebackType
 
 _T = TypeVar("_T")
 
@@ -90,6 +92,11 @@ class tqdm(Iterable[_T], ContextManager["tqdm[None]"]):  # noqa: N801
     def clear(self, nolock: bool = ...) -> None: ...
     def close(self) -> None: ...
     n: Union[int, float] = ...
+    def __enter__(self) -> Any: ...
+    def __exit__(
+        self, exc_type: Optional[Type[BaseException]], exc: Optional[BaseException], traceback: Optional[TracebackType]
+    ) -> Optional[bool]: ...
+
 
 class trange(tqdm[int]):  # noqa: N801
     def __init__(

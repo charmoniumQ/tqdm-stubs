@@ -2,10 +2,10 @@
   main: |
     from tqdm import tqdm, trange
     for i in trange(100):
-        reveal_type(i)  # N: Revealed type is "builtins.int*"
+        reveal_type(i)  # N: Revealed type is "builtins.int"
 
     for j in tqdm([1.2]):
-        reveal_type(j)  # N: Revealed type is "builtins.float*"
+        reveal_type(j)  # N: Revealed type is "builtins.float"
 
 - case: tqdm-object
   main: |
@@ -16,7 +16,7 @@
         unit="u",
         total=10,
     )
-    reveal_type(t)  # N: Revealed type is "tqdm.tqdm[builtins.str*]"
+    reveal_type(t)  # N: Revealed type is "tqdm.tqdm[builtins.str]"
     t.clear()
     t.update(3)
     t.update(3.4)
