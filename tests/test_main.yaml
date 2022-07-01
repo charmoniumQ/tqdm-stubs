@@ -7,7 +7,7 @@
     for j in tqdm([1.2]):
         reveal_type(j)  # N: Revealed type is "builtins.float*"
 
-- case: tqdm-loops
+- case: tqdm-object
   main: |
     from tqdm import tqdm
     t = tqdm(
