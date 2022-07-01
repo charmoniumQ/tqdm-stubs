@@ -27,7 +27,7 @@ build-backend = "poetry.core.masonry.api"
 profile = "black"
 
 [tool.pytest.ini_options]
-addopts = "--quiet --numprocesses=auto --doctest-modules --doctest-glob='*.rst'"
+addopts = "--quiet --doctest-modules --doctest-glob='*.rst'"
 
 [tool.coverage.run]
 branch = true
@@ -89,9 +89,8 @@ autoimport = "^0.7.5"
 isort = "^5.10.0"
 black = "^21.10b0"
 pylint = "^2.11.1"
-mypy = "^0.910"
+mypy = "^0.961"
 pytest = "^6.2.5"
-pytest-xdist = "^2.4.0"
 pytest-cov = "^3.0.0"
 coverage = "^6.1.2"
 tox = "^3.24.4"
