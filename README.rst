@@ -2,6 +2,10 @@
 tqdm-stubs
 ==========================
 
+**Note: `typeshed`_ now includes higher quality stubs for tqdm.**
+
+.. _`typeshed`: https://github.com/python/typeshed/tree/master/stubs/tqdm
+
 .. image:: https://img.shields.io/pypi/v/tqdm_stubs
    :alt: PyPI Package
    :target: https://pypi.org/project/tqdm_stubs
